@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Kode Rims & Warna CDID Car Driving Indonesia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 18px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: #555;
+            position: relative;
+        }
+        
+        .tab-btn:hover {
+            background-color: #f0f4f8;
+        }
+        
+        .tab-btn.active {
+            color: #4b6cb7;
+            background-color: #e6f0ff;
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #4b6cb7;
+        }
+        
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Tab Rims */
+        .rims-container {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .rims-title {
+            font-size: 1.8rem;
+            color: #4b6cb7;
+            margin-bottom: 20px;
+        }
+        
+        .rims-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .rims-placeholder {
+            padding: 40px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+            display: inline-block;
+        }
+        
+        .rims-placeholder i {
+            font-size: 3rem;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+        
+        .rims-placeholder p {
+            color: #777;
+            font-size: 1.1rem;
+        }
+        
+        .rims-success {
+            display: none;
+            padding: 40px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            border: 2px solid #4caf50;
+            margin-top: 20px;
+        }
+        
+        .rims-success i {
+            font-size: 3rem;
+            color: #4caf50;
+            margin-bottom: 15px;
+        }
+        
+        .rims-success p {
+            color: #2e7d32;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        /* Tab Warna */
+        .color-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .color-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .color-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .color-preview {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .color-code {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .color-name {
+            padding: 8px 10px;
+            text-align: center;
+            font-size: 0.85rem;
+            background: #f5f5f5;
+            font-weight: 500;
+        }
+        
+        /* Tab Upload */
+        .upload-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .upload-title {
+            font-size: 1.8rem;
+            color: #4b6cb7;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .upload-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .file-input-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-input-label:hover {
+            background: #e0e0e0;
+        }
+        
+        .file-input-label i {
+            margin-right: 10px;
+            color: #666;
+        }
+        
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .preview-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .preview-img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 4px;
+            display: none;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+        }
+        
+        .btn {
+            background: #4b6cb7;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn:hover {
+            background: #3a5795;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn i {
+            margin-right: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .color-container {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+        
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-car-side"></i> Custom Kode Rims & Warna CDID</h1>
+            <p class="subtitle">Car Driving Indonesia - Database Kode Rims dan Warna</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="rims">
+                <i class="fas fa-circle-notch"></i> Kode Rims
+            </button>
+            <button class="tab-btn" data-tab="warna">
+                <i class="fas fa-palette"></i> Kode Warna
+            </button>
+            <button class="tab-btn" data-tab="upload">
+                <i class="fas fa-upload"></i> Upload Rims
+            </button>
+        </div>
+        
+        <!-- Tab Rims -->
+        <div id="rims" class="tab-content active">
+            <div class="rims-container">
+                <h2 class="rims-title">Daftar Kode Rims Custom</h2>
+                <p class="rims-subtitle">Silakan gunakan form di tab Upload untuk menambahkan kode rims baru</p>
+                
+                <div class="rims-placeholder">
+                    <i class="fas fa-circle-notch"></i>
+                    <p>Tidak ada data rims saat ini</p>
+                </div>
+                
+                <div class="rims-success" id="rimsSuccess">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Data rims berhasil diupload! Silakan refresh halaman untuk melihat perubahan.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab Warna -->
+        <div id="warna" class="tab-content">
+            <h2>Top 100 Kode Warna</h2>
+            <p>Pilihan warna populer untuk mobil Anda.</p>
+            
+            <div class="color-container" id="colorContainer">
+                <!-- Warna akan diisi oleh JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Tab Upload -->
+        <div id="upload" class="tab-content">
+            <div class="upload-container">
+                <h2 class="upload-title">Upload Data Rims</h2>
+                <p class="upload-subtitle">Unggah foto rims, kode, dan nama rims Anda</p>
+                
+                <form id="uploadForm" class="upload-form">
+                    <div class="form-group">
+                        <label for="namaRims">Nama Rims:</label>
+                        <input type="text" id="namaRims" name="namaRims" placeholder="Masukkan nama rims" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="kodeRims">Kode Rims:</label>
+                        <input type="text" id="kodeRims" name="kodeRims" placeholder="Masukkan kode rims" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pemilikRims">Nama Pemilik:</label>
+                        <input type="text" id="pemilikRims" name="pemilikRims" placeholder="Masukkan nama pemilik rims" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fotoRims">Foto Rims:</label>
+                        <div class="file-input-container">
+                            <label for="fotoRims" class="file-input-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Pilih file atau drag & drop di sini</span>
+                            </label>
+                            <input type="file" id="fotoRims" name="fotoRims" accept="image/*" required>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-container">
+                        <img id="previewImage" class="preview-img" alt="Preview">
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload Data
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 CDID Car Driving Indonesia | Database Kode Rims dan Warna</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Tab Navigation
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Data warna dari sumber eksternal
+        const warnaData = [
+            { nama: "AliceBlue", kode: "#F0F8FF" },
+            { nama: "AntiqueWhite", kode: "#FAEBD7" },
+            { nama: "Aqua", kode: "#00FFFF" },
+            { nama: "Aquamarine", kode: "#7FFFD4" },
+            { nama: "Azure", kode: "#F0FFFF" },
+            { nama: "Beige", kode: "#F5F5DC" },
+            { nama: "Bisque", kode: "#FFE4C4" },
+            { nama: "Black", kode: "#000000" },
+            { nama: "BlanchedAlmond", kode: "#FFEBCD" },
+            { nama: "Blue", kode: "#0000FF" },
+            { nama: "BlueViolet", kode: "#8A2BE2" },
+            { nama: "Brown", kode: "#A52A2A" },
+            { nama: "BurlyWood", kode: "#DEB887" },
+            { nama: "CadetBlue", kode: "#5F9EA0" },
+            { nama: "Chartreuse", kode: "#7FFF00" },
+            { nama: "Chocolate", kode: "#D2691E" },
+            { nama: "Coral", kode: "#FF7F50" },
+            { nama: "CornflowerBlue", kode: "#6495ED" },
+            { nama: "Cornsilk", kode: "#FFF8DC" },
+            { nama: "Crimson", kode: "#DC143C" },
+            { nama: "Cyan", kode: "#00FFFF" },
+            { nama: "DarkBlue", kode: "#00008B" },
+            { nama: "DarkCyan", kode: "#008B8B" },
+            { nama: "DarkGoldenRod", kode: "#B8860B" },
+            { nama: "DarkGray", kode: "#A9A9A9" },
+            { nama: "DarkGreen", kode: "#006400" },
+            { nama: "DarkKhaki", kode: "#BDB76B" },
+            { nama: "DarkMagenta", kode: "#8B008B" },
+            { nama: "DarkOliveGreen", kode: "#556B2F" },
+            { nama: "DarkOrange", kode: "#FF8C00" },
+            { nama: "DarkOrchid", kode: "#9932CC" },
+            { nama: "DarkRed", kode: "#8B0000" },
+            { nama: "DarkSalmon", kode: "#E9967A" },
+            { nama: "DarkSeaGreen", kode: "#8FBC8F" },
+            { nama: "DarkSlateBlue", kode: "#483D8B" },
+            { nama: "DarkSlateGray", kode: "#2F4F4F" },
+            { nama: "DarkTurquoise", kode: "#00CED1" },
+            { nama: "DarkViolet", kode: "#9400D3" },
+            { nama: "DeepPink", kode: "#FF1493" },
+            { nama: "DeepSkyBlue", kode: "#00BFFF" },
+            { nama: "DimGray", kode: "#696969" },
+            { nama: "DodgerBlue", kode: "#1E90FF" },
+            { nama: "FireBrick", kode: "#B22222" },
+            { nama: "FloralWhite", kode: "#FFFAF0" },
+            { nama: "ForestGreen", kode: "#228B22" },
+            { nama: "Fuchsia", kode: "#FF00FF" },
+            { nama: "Gainsboro", kode: "#DCDCDC" },
+            { nama: "GhostWhite", kode: "#F8F8FF" },
+            { nama: "Gold", kode: "#FFD700" },
+            { nama: "GoldenRod", kode: "#DAA520" },
+            { nama: "Gray", kode: "#808080" },
+            { nama: "Green", kode: "#008000" },
+            { nama: "GreenYellow", kode: "#ADFF2F" },
+            { nama: "HoneyDew", kode: "#F0FFF0" },
+            { nama: "HotPink", kode: "#FF69B4" },
+            { nama: "IndianRed", kode: "#CD5C5C" },
+            { nama: "Indigo", kode: "#4B0082" },
+            { nama: "Ivory", kode: "#FFFFF0" },
+            { nama: "Khaki", kode: "#F0E68C" },
+            { nama: "Lavender", kode: "#E6E6FA" },
+            { nama: "LavenderBlush", kode: "#FFF0F5" },
+            { nama: "LawnGreen", kode: "#7CFC00" },
+            { nama: "LemonChiffon", kode: "#FFFACD" },
+            { nama: "LightBlue", kode: "#ADD8E6" },
+            { nama: "LightCoral", kode: "#F08080" },
+            { nama: "LightCyan", kode: "#E0FFFF" },
+            { nama: "LightGoldenRodYellow", kode: "#FAFAD2" },
+            { nama: "LightGray", kode: "#D3D3D3" },
+            { nama: "LightGreen", kode: "#90EE90" },
+            { nama: "LightPink", kode: "#FFB6C1" },
+            { nama: "LightSalmon", kode: "#FFA07A" },
+            { nama: "LightSeaGreen", kode: "#20B2AA" },
+            { nama: "LightSkyBlue", kode: "#87CEFA" },
+            { nama: "LightSlateGray", kode: "#778899" },
+            { nama: "LightSteelBlue", kode: "#B0C4DE" },
+            { nama: "LightYellow", kode: "#FFFFE0" },
+            { nama: "Lime", kode: "#00FF00" },
+            { nama: "LimeGreen", kode: "#32CD32" },
+            { nama: "Linen", kode: "#FAF0E6" },
+            { nama: "Magenta", kode: "#FF00FF" },
+            { nama: "Maroon", kode: "#800000" },
+            { nama: "MediumAquaMarine", kode: "#66CDAA" },
+            { nama: "MediumBlue", kode: "#0000CD" },
+            { nama: "MediumOrchid", kode: "#BA55D3" },
+            { nama: "MediumPurple", kode: "#9370DB" },
+            { nama: "MediumSeaGreen", kode: "#3CB371" },
+            { nama: "MediumSlateBlue", kode: "#7B68EE" },
+            { nama: "MediumSpringGreen", kode: "#00FA9A" },
+            { nama: "MediumTurquoise", kode: "#48D1CC" },
+            { nama: "MediumVioletRed", kode: "#C71585" },
+            { nama: "MidnightBlue", kode: "#191970" },
+            { nama: "MintCream", kode: "#F5FFFA" },
+            { nama: "MistyRose", kode: "#FFE4E1" },
+            { nama: "Moccasin", kode: "#FFE4B5" },
+            { nama: "NavajoWhite", kode: "#FFDEAD" },
+            { nama: "Navy", kode: "#000080" },
+            { nama: "OldLace", kode: "#FDF5E6" },
+            { nama: "Olive", kode: "#808000" },
+            { nama: "OliveDrab", kode: "#6B8E23" },
+            { nama: "Orange", kode: "#FFA500" },
+            { nama: "OrangeRed", kode: "#FF4500" },
+            { nama: "Orchid", kode: "#DA70D6" },
+            { nama: "PaleGoldenRod", kode: "#EEE8AA" },
+            { nama: "PaleGreen", kode: "#98FB98" },
+            { nama: "PaleTurquoise", kode: "#AFEEEE" },
+            { nama: "PaleVioletRed", kode: "#DB7093" },
+            { nama: "PapayaWhip", kode: "#FFEFD5" },
+            { nama: "PeachPuff", kode: "#FFDAB9" },
+            { nama: "Peru", kode: "#CD853F" },
+            { nama: "Pink", kode: "#FFC0CB" },
+            { nama: "Plum", kode: "#DDA0DD" },
+            { nama: "PowderBlue", kode: "#B0E0E6" },
+            { nama: "Purple", kode: "#800080" },
+            { nama: "Red", kode: "#FF0000" },
+            { nama: "RosyBrown", kode: "#BC8F8F" },
+            { nama: "RoyalBlue", kode: "#4169E1" },
+            { nama: "SaddleBrown", kode: "#8B4513" },
+            { nama: "Salmon", kode: "#FA8072" },
+            { nama: "SandyBrown", kode: "#F4A460" },
+            { nama: "SeaGreen", kode: "#2E8B57" },
+            { nama: "SeaShell", kode: "#FFF5EE" },
+            { nama: "Sienna", kode: "#A0522D" },
+            { nama: "Silver", kode: "#C0C0C0" },
+            { nama: "SkyBlue", kode: "#87CEEB" },
+            { nama: "SlateBlue", kode: "#6A5ACD" },
+            { nama: "SlateGray", kode: "#708090" },
+            { nama: "Snow", kode: "#FFFAFA" },
+            { nama: "SpringGreen", kode: "#00FF7F" },
+            { nama: "SteelBlue", kode: "#4682B4" },
+            { nama: "Tan", kode: "#D2B48C" },
+            { nama: "Teal", kode: "#008080" },
+            { nama: "Thistle", kode: "#D8BFD8" },
+            { nama: "Tomato", kode: "#FF6347" },
+            { nama: "Turquoise", kode: "#40E0D0" },
+            { nama: "Violet", kode: "#EE82EE" },
+            { nama: "Wheat", kode: "#F5DEB3" },
+            { nama: "White", kode: "#FFFFFF" },
+            { nama: "WhiteSmoke", kode: "#F5F5F5" },
+            { nama: "Yellow", kode: "#FFFF00" },
+            { nama: "YellowGreen", kode: "#9ACD32" }
+        ];
+
+        // Populate color container
+        const colorContainer = document.getElementById('colorContainer');
+        
+        warnaData.forEach(warna => {
+            const colorItem = document.createElement('div');
+            colorItem.className = 'color-item';
+            
+            const colorPreview = document.createElement('div');
+            colorPreview.className = 'color-preview';
+            colorPreview.style.backgroundColor = warna.kode;
+            
+            const colorCode = document.createElement('div');
+            colorCode.className = 'color-code';
+            colorCode.textContent = warna.kode;
+            
+            const colorName = document.createElement('div');
+            colorName.className = 'color-name';
+            colorName.textContent = warna.nama;
+            
+            colorItem.appendChild(colorPreview);
+            colorItem.appendChild(colorCode);
+            colorItem.appendChild(colorName);
+            
+            colorContainer.appendChild(colorItem);
+        });
+        
+        // Preview image
+        const fotoInput = document.getElementById('fotoRims');
+        const previewImage = document.getElementById('previewImage');
+        
+        fotoInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Form submission
+        const uploadForm = document.getElementById('uploadForm');
+        uploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const namaRims = document.getElementById('namaRims').value;
+            const kodeRims = document.getElementById('kodeRims').value;
+            const pemilikRims = document.getElementById('pemilikRims').value;
+            const fotoRims = document.getElementById('fotoRims').files[0];
+            
+            // Simulasi pengiriman data ke Netlify
+            console.log('Data yang diupload:');
+            console.log('Nama Rims:', namaRims);
+            console.log('Kode Rims:', kodeRims);
+            console.log('Pemilik Rims:', pemilikRims);
+            console.log('Foto:', fotoRims ? fotoRims.name : 'Tidak ada file');
+            
+            // Tampilkan toast notification
+            showToast('Data rims berhasil diupload!');
+            
+            // Tampilkan pesan sukses di tab rims
+            document.getElementById('rimsSuccess').style.display = 'block';
+            
+            // Reset form
+            uploadForm.reset();
+            previewImage.style.display = 'none';
+        });
+        
+        // Toast notification function
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        
+        function showToast(message, type = 'success') {
+            toastMessage.textContent = message;
+            
+            if (type === 'error') {
+                toast.style.background = '#e74c3c';
+            } else {
+                toast.style.background = '#2ecc71';
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
